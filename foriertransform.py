@@ -32,3 +32,5 @@ xf = fftfreq(N, 1 / SAMPLE_RATE)
 
 plt.plot(xf, np.abs(yf))
 plt.show()
+
+nmrsim.qm()

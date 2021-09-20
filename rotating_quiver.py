@@ -1,13 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
 
 fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 
 speed = 2
 arrow_z_component = 4
-radius = 10
+radius = 1
 n = 100 // speed  # NUMBER OF FRAMES
 
 
@@ -21,11 +20,17 @@ def get_arrow(theta):
     return x, y, z, u, v, w
 
 
-quiver = ax.quiver(*get_arrow(0), pivot='middle')
+# draw sphere
+u, v = np.mgrid[0:2 * np.pi:20j, 0:np.pi:10j]
+x = np.cos(u) * np.sin(v)
+y = np.sin(u) * np.sin(v)
+z = np.cos(v)
+
+quiver = ax.quiver(*get_arrow(0), normalize=True, pivot='middle')
 
 ax.set_xlim(-1.5 * radius, 1.5 * radius)
 ax.set_ylim(-1.5 * radius, 1.5 * radius)
-ax.set_zlim(-1.5 * arrow_z_component, 1.5 * arrow_z_component)
+ax.set_zlim(-0.75 * arrow_z_component, 0.75 * arrow_z_component)
 
 
 def update(theta):
@@ -42,5 +47,9 @@ plt.plot(radius * np.cos(twopi), radius * np.sin(twopi),
 plt.plot(-radius * np.cos(twopi), -radius * np.sin(twopi),
          np.linspace(-0.5 * arrow_z_component, -0.5 * arrow_z_component, numpoints))
 
+# Plot the sphere
+ax.plot_wireframe(x, y, z, color="r")
+
+# Plot the animated rotating arrow
 ani = FuncAnimation(fig, update, frames=np.linspace(0, 2 * np.pi, n), interval=0.0005)
 plt.show()

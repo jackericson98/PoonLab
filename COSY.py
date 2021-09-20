@@ -1,2 +1,4 @@
 class Peak:
-    def
+    def center(self):
+        self.xcomp()
+        self.ycomp()

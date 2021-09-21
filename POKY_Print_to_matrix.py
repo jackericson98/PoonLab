@@ -186,10 +186,10 @@ peak @ 112.449 7.671 lw 19.153 73.646 vol 1.553e+10 rms 42.4%
 """This function filters out the string Fit group of _ peaks."""
 
 
-def filterStr(rawStr):
-    cleanStr = rawStr.replace("Fit group of 2 peaks.", '')
-    cleanStr = cleanStr.replace("Fit group of 4 peaks.", '')
-    return cleanStr
+def clean_data(raw_str):
+    clean_str = raw_str.replace("Fit group of 2 peaks.", '')
+    clean_str = clean_str.replace("Fit group of 4 peaks.", '')
+    return clean_str
 
 
 "This function takes each peak and returns a value for each data point"
@@ -202,21 +202,32 @@ def interpret_vol(peak_data):
     return vol
 
 
+def interpret_peaks(peak_data):
+    index1a = peak_data.find('@') + 2
+    index1b = peak_data.find(' ', 7, 17)
+    w1 = int(peak_data[index1a: index1b])
+    index2a = index1b + 1
+    index2b = index2a + 7
+
+    w2 = int(peak_data[index2a:index2b])
+    return w1, w2
+
+
 """This function takes all of the data and separates it into an array of strings. You need to copy and paste the 
 first set twice bug """
 
 
-def separate(data):
+def separate(my_str):
     data_array = []
     len_between_ps = 0
-    strNum = 0
-    for char in data:
+    str_num = 0
+    for char in my_str:
         if char == 'p':
-            data_array.append(data[strNum - len_between_ps - 1:strNum])
+            data_array.append(my_str[str_num - len_between_ps - 1:str_num])
             len_between_ps = 0
         else:
             len_between_ps = len_between_ps + 1
-        strNum = strNum + 1
+        str_num = str_num + 1
     del data_array[0]
     return data_array
 
@@ -225,11 +236,11 @@ def separate(data):
 interpreted """
 
 
-def interpret_all_vol(dataStr):
+def interpret_all_vol(data_str):
     full_array = []
-    clean_dataStr = filterStr(dataStr)
-    separated_dataStr = separate(clean_dataStr)
-    for element in separated_dataStr:
+    clean_data_str = clean_data(data_str)
+    separated_data_str = separate(clean_data_str)
+    for element in separated_data_str:
         full_array.append(interpret_vol(element))
     return full_array
 

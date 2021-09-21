@@ -182,6 +182,8 @@ peak @ 112.449 7.671 lw 19.153 73.646 vol 1.553e+10 rms 42.4%
 peak @ 112.449 7.671 lw 19.153 73.646 vol 1.553e+10 rms 42.4%
 """
 
+import matplotlib.pyplot as plt
+
 
 """This function filters out the string Fit group of _ peaks."""
 
@@ -256,8 +258,16 @@ def interpret_all_peaks(dataset):
 
     return peak1_array, peak2_array
 
-print(interpret_all_peaks(data)[0])
+
 print(interpret_all_peaks(data)[1])
 print(interpret_all_vol(data))
 
+w1 = interpret_all_peaks(data)[0]
+w2 = interpret_all_peaks(data)[1]
+vol = interpret_all_vol(data)
 
+plt.title('Volume vs. Chemical Shift')
+plt.ylabel('Volume of the Peak')
+plt.xlabel('Hydrogen Chemical Shift')
+plt.scatter(w1, vol, marker='x')
+plt.show()

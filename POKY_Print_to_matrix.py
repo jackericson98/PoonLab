@@ -205,11 +205,10 @@ def interpret_vol(peak_data):
 def interpret_peaks(peak_data):
     index1a = peak_data.find('@') + 2
     index1b = peak_data.find(' ', 7, 17)
-    w1 = int(peak_data[index1a: index1b])
+    w1 = float(peak_data[index1a: index1b])
     index2a = index1b + 1
-    index2b = index2a + 7
-
-    w2 = int(peak_data[index2a:index2b])
+    index2b = index2a + 6
+    w2 = float(peak_data[index2a:index2b])
     return w1, w2
 
 
@@ -237,15 +236,28 @@ interpreted """
 
 
 def interpret_all_vol(data_str):
-    full_array = []
+    vol_array = []
     clean_data_str = clean_data(data_str)
     separated_data_str = separate(clean_data_str)
     for element in separated_data_str:
-        full_array.append(interpret_vol(element))
-    return full_array
+        vol_array.append(interpret_vol(element))
+    return vol_array
 
 
+def interpret_all_peaks(dataset):
+    peak1_array = []
+    peak2_array = []
+    clean_data_str = clean_data(dataset)
+    sep_clean_data = separate(clean_data_str)
+    for element in sep_clean_data:
+        w1, w2 = interpret_peaks(element)
+        peak1_array.append(w1)
+        peak2_array.append(w2)
+
+    return peak1_array, peak2_array
+
+print(interpret_all_peaks(data)[0])
+print(interpret_all_peaks(data)[1])
 print(interpret_all_vol(data))
-
 
 

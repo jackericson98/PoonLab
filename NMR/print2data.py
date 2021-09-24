@@ -1,6 +1,8 @@
 """The point of this code is to allow you to copy and paste the integration data from POKY into the data file and then
-receive the data it contains (chemical shifts, line widths, volume, % error?)"""
+receive the data it contains (chemical shifts (w1, w2), line widths(lw1, lw2), volume, % error?)"""
 
+"""peak @ 120.228 8.200 lw 12.116 16.139 vol 6.313e+09 rms 10.2%
+Isolated"""
 
 from data import *
 
@@ -34,6 +36,19 @@ def interpret_peaks(peak_data):
     index2b = index2a + 6
     w2 = float(peak_data[index2a:index2b])
     return w1, w2
+
+
+"""This function takes each peak data set and returns its line widths"""
+
+
+def interpret_line_width(peak_data):
+    index1a = peak_data.find('lw') + 2
+    index1b = peak_data.find('vol') - 7
+    lw1 = float(peak_data[index1a: index1b])
+    index2a = index1b
+    index2b = peak_data.find('vol') - 1
+    lw2 = float(peak_data[index2a:index2b])
+    return lw1, lw2
 
 
 """This function takes all of the data and separates it into an array of strings. You need to copy and paste the 
@@ -83,8 +98,27 @@ def interpret_all_peaks(dataset):
     return peak1_array, peak2_array
 
 
+"""This function takes the entire data set and returns 2 arrays of lw1 and lw2 chemical shift data points"""
+
+
+def interpret_all_line_widths(dataset):
+    line_width1_array = []
+    line_width2_array = []
+    clean_data_str = clean_data(dataset)
+    sep_clean_data = separate(clean_data_str)
+    for element in sep_clean_data:
+        lw1, lw2 = interpret_line_width(element)
+        line_width1_array.append(lw1)
+        line_width2_array.append(lw2)
+
+    return line_width1_array, line_width2_array
+
+
 w1 = interpret_all_peaks(data)[0]
 w2 = interpret_all_peaks(data)[1]
 vol = interpret_all_vol(data)
+lw1 = interpret_all_line_widths(data)[0]
+lw2 = interpret_all_line_widths(data)[1]
 
-
+print(lw1)
+print(lw2)

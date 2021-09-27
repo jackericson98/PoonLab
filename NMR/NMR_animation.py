@@ -4,7 +4,7 @@ from matplotlib.animation import FuncAnimation
 
 fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 
-speed = 2
+speed = 1
 arrow_length = 1
 theta_real = 3 * np.pi / 8
 radius = arrow_length * np.sin(theta_real)
@@ -32,8 +32,8 @@ def rotation_z(angle):
 
 
 # Draw Sphere
-def get_sphere():
-    theta_construct = np.linspace(0, 2*np.pi, 20)
+def get_sphere(phase):
+    theta_construct = np.linspace(phase, 2*np.pi * phase, 20)
     phi_construct = np.linspace(0, np.pi, 10)
     phi_construct, theta_construct = np.meshgrid(phi_construct, theta_construct)
     x = 0.5 * radius * np.cos(theta_construct) * np.sin(phi_construct)
@@ -56,7 +56,7 @@ def rotate_sphere(angle):
     return x, y, z
 
 
-sphere = ax.plot_surface(*rotate_sphere(np.pi/4))
+sphere = ax.plot_surface(*get_sphere(0))
 quiver = ax.quiver(*get_arrow(0), normalize=True, pivot='tail', capstyle='butt')
 
 ax.set_xlim(-2, 2)
@@ -69,9 +69,9 @@ def update(phi):
     quiver.remove()
     quiver = ax.quiver(*get_arrow(phi))
 
-    # global sphere
-    # sphere.remove()
-    # sphere = ax.plot_surface(x, y, z, color="r")
+    global sphere
+    sphere.remove()
+    sphere = ax.plot_surface(*get_sphere(phi), color="r")
 
 
 # Plot the animated rotating arrow

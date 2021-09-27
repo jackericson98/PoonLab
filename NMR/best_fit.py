@@ -1,4 +1,4 @@
-"""This function creates random error exponential decay functions"""
+"""This file is used to create a best fit function for exponential decay functions and returns the decay constant"""
 import random
 import numpy as np
 import matplotlib.pyplot as plt
@@ -33,15 +33,15 @@ def exp_func(x, a, b):
 num_points = 100
 
 x_data = np.linspace(0, 100, num_points)
-y_data = exp_func(x_data, 2, 4)
-lin_data, p_cov = optimize.curve_fit(exp_func, x_data, y_data)
+y_data = lin_func(x_data, 2, 4)
+lin_data, p_cov = optimize.curve_fit(lin_func, x_data, y_data)
 
 
 slope = lin_data[0]
 intercept = lin_data[1]
-new_y_data = x_data * slope
+new_y_data = x_data * slope + intercept
 
 plt.scatter(x_data, y_data, )
-plt.plot(x_data, new_y_data)
+plt.plot(x_data, new_y_data, color='red')
 
 plt.show()

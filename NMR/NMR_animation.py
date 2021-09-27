@@ -32,27 +32,14 @@ def rotation_z(angle):
 
 
 # Draw Sphere
-def get_sphere(phase):
-    theta_construct = np.linspace(phase, 2*np.pi * phase, 20)
-    phi_construct = np.linspace(0, np.pi, 10)
+def get_sphere(rot_angle):
+    tilt_angle = theta_real
+    theta_construct = np.linspace(rot_angle, 2 * np.pi + rot_angle, 20)
+    phi_construct = np.linspace(tilt_angle, np.pi + tilt_angle, 10)
     phi_construct, theta_construct = np.meshgrid(phi_construct, theta_construct)
     x = 0.5 * radius * np.cos(theta_construct) * np.sin(phi_construct)
     y = 0.5 * radius * np.sin(theta_construct) * np.sin(phi_construct)
     z = 0.5 * radius * np.cos(phi_construct)
-    return x, y, z
-
-
-def rotate_sphere(angle):
-    x = []
-    y = []
-    z = []
-    for i in range(len(get_sphere()[0][0])):
-        for j in range(len(get_sphere()[0][1])):
-            point = [get_sphere()[0][i][j], get_sphere()[1][i][j], get_sphere()[2][i][j]]
-            rotated_point = rotation_x(angle).dot(point)
-            x.append(rotated_point[0])
-            y.append(rotated_point[1])
-            z.append(rotated_point[2])
     return x, y, z
 
 
@@ -71,7 +58,7 @@ def update(phi):
 
     global sphere
     sphere.remove()
-    sphere = ax.plot_surface(*get_sphere(phi), color="r")
+    sphere = ax.plot_surface(*get_sphere(-phi), color="r")
 
 
 # Plot the animated rotating arrow

@@ -6,8 +6,9 @@ fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 
 speed = 1
 arrow_length = 1
-theta_real = 3 * np.pi / 8
-radius = arrow_length * np.sin(theta_real)
+theta_real = np.pi / 16
+radius = np.sin(theta_real) / arrow_length
+sphere_radius = arrow_length
 n = 100 // speed  # NUMBER OF FRAMES
 
 
@@ -33,22 +34,21 @@ def rotation_z(angle):
 
 # Draw Sphere
 def get_sphere(rot_angle):
-    tilt_angle = theta_real
     theta_construct = np.linspace(rot_angle, 2 * np.pi + rot_angle, 20)
-    phi_construct = np.linspace(tilt_angle, np.pi + tilt_angle, 10)
+    phi_construct = np.linspace(-theta_real, np.pi - theta_real, 10)
     phi_construct, theta_construct = np.meshgrid(phi_construct, theta_construct)
-    x = 0.5 * radius * np.cos(theta_construct) * np.sin(phi_construct)
-    y = 0.5 * radius * np.sin(theta_construct) * np.sin(phi_construct)
-    z = 0.5 * radius * np.cos(phi_construct)
+    x = 0.25 * sphere_radius * np.cos(theta_construct) * np.sin(phi_construct)
+    y = 0.25 * sphere_radius * np.sin(theta_construct) * np.sin(phi_construct)
+    z = 0.25 * sphere_radius * np.cos(phi_construct)
     return x, y, z
 
 
 sphere = ax.plot_surface(*get_sphere(0))
 quiver = ax.quiver(*get_arrow(0), normalize=True, pivot='tail', capstyle='butt')
 
-ax.set_xlim(-2, 2)
-ax.set_ylim(-2, 2)
-ax.set_zlim(-2, 2)
+ax.set_xlim(-1, 1)
+ax.set_ylim(-1, 1)
+ax.set_zlim(-1, 1)
 
 
 def update(phi):
@@ -58,9 +58,14 @@ def update(phi):
 
     global sphere
     sphere.remove()
-    sphere = ax.plot_surface(*get_sphere(-phi), color="r")
+    sphere = ax.plot_surface(*get_sphere(-phi), color="b")
 
 
 # Plot the animated rotating arrow
 ani = FuncAnimation(fig, update, frames=np.linspace(0, 2 * np.pi, n), interval=0.0005)
+ax.grid(False)
+ax.set_xticks([])
+ax.set_yticks([])
+ax.set_zticks([])
+plt.axis('off')
 plt.show()

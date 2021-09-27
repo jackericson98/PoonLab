@@ -127,7 +127,7 @@ def interpret_all_line_widths(dataset):
 def interpret_all_percent(dataset):
     percent_array = []
     clean_data_str = clean_data(dataset)
-    sep_clean_data = seperate(clean_data_str)
+    sep_clean_data = separate(clean_data_str)
     for element in sep_clean_data:
         percent_data = interpret_percentage(element)
         percent_array.append(percent_data)

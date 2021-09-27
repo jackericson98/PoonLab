@@ -8,8 +8,8 @@ from matplotlib.animation import FuncAnimation
 
 
 fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
-speed = 5
-n = 1000//speed
+speed = 1
+n = 100//speed
 
 """function that decays the volume values over time"""
 

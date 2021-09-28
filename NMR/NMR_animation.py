@@ -1,14 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
+from matplotlib.collections import LineCollection
 
 fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 
 speed = 1
 arrow_length = 1
 theta_real = np.pi / 16
-radius = np.sin(theta_real) / arrow_length
-sphere_radius = arrow_length
+radius = np.sin(theta_real) * arrow_length
+sphere_radius = 2*arrow_length
 n = 100 // speed  # NUMBER OF FRAMES
 
 
@@ -18,7 +19,7 @@ def get_arrow(phi):
     z = 0
     u = radius * np.sin(phi)
     v = radius * np.cos(phi)
-    w = 0.5 * arrow_length
+    w = radius / np.tan(theta_real)
     return x, y, z, u, v, w
 
 
@@ -44,17 +45,17 @@ def get_sphere(rot_angle):
 
 
 sphere = ax.plot_surface(*get_sphere(0))
-quiver = ax.quiver(*get_arrow(0), normalize=True, pivot='tail', capstyle='butt')
+quiver = ax.quiver(*get_arrow(0), arrow_length_ratio=1,  pivot='tail', capstyle='butt')
 
-ax.set_xlim(-1, 1)
-ax.set_ylim(-1, 1)
-ax.set_zlim(-1, 1)
+ax.set_xlim(-.5 * sphere_radius, .5 * sphere_radius)
+ax.set_ylim(-.5 * sphere_radius, .5 * sphere_radius)
+ax.set_zlim(-.5 * sphere_radius, .5 * sphere_radius)
 
 
 def update(phi):
     global quiver
     quiver.remove()
-    quiver = ax.quiver(*get_arrow(phi))
+    quiver = ax.quiver(*get_arrow(phi), arrow_length_ratio=.2, pivot='tail', capstyle='butt')
 
     global sphere
     sphere.remove()

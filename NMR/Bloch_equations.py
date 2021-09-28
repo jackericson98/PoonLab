@@ -10,12 +10,12 @@ M0 = [1, 1, 0] # Initial Magnetization vector
 B0 = 1  # Static Magnetic Field Strength
 B_hat = [0, 0, B0]  # Static Magnetic Field Direction (currently misleading)
 T1 = 100  # Longitudinal Relaxation Constant
-T2 = 20  # Transverse Relaxation Constant
+T2 = 40  # Transverse Relaxation Constant
 dt = T1/100  # Time Step
 gamma = 1  # Gyromagnetic Ratio
 num_its = 100  # Number of animation frames
 w0 = gamma * B0  # Larmor Frequency
-quiver_length = 1  # Length of the vector representing spin (should have a formula)
+quiver_length = 1  # Length of the vector representing spin (should have a formula ... Spin mag?)
 
 
 def solved_bloch(t):
@@ -49,12 +49,14 @@ ani = FuncAnimation(fig, update, frames=np.linspace(0, 20*np.pi/w0, 5*num_its), 
 ax.quiver(-quiver_length, quiver_length, 0, 0.5 * quiver_length, 0, 0)
 ax.quiver(-quiver_length, quiver_length, 0, 0, -0.5 * quiver_length, 0)
 ax.quiver(-quiver_length, quiver_length, 0, 0, 0, 0.5 * quiver_length)
+ax.text(-quiver_length, quiver_length - 0.7 * quiver_length, 0, "X")
+ax.text(-quiver_length + 0.7 * quiver_length, quiver_length, 0, "Y")
+ax.text(-quiver_length, quiver_length, 0.7 * quiver_length, "Z")
 
 ax.set_xlim(-1, 1)
 ax.set_ylim(-1, 1)
 ax.set_zlim(-1, 1)
 ax.axis('off')
-plt.show()
 
 
 # def diffy_bloch_eq(x_data, y_data, z_data):

@@ -36,7 +36,7 @@ def rotation_z(angle):
 # Draw Sphere
 def get_sphere(rot_angle):
     theta_construct = np.linspace(rot_angle, 2 * np.pi + rot_angle, 20)
-    phi_construct = np.linspace(-theta_real, np.pi - theta_real, 10)
+    phi_construct = np.linspace(0, np.pi, 10)
     phi_construct, theta_construct = np.meshgrid(phi_construct, theta_construct)
     x = 0.25 * sphere_radius * np.cos(theta_construct) * np.sin(phi_construct)
     y = 0.25 * sphere_radius * np.sin(theta_construct) * np.sin(phi_construct)
@@ -45,17 +45,13 @@ def get_sphere(rot_angle):
 
 
 sphere = ax.plot_surface(*get_sphere(0))
-quiver = ax.quiver(*get_arrow(0), arrow_length_ratio=1,  pivot='tail', capstyle='butt')
-
-ax.set_xlim(-.5 * sphere_radius, .5 * sphere_radius)
-ax.set_ylim(-.5 * sphere_radius, .5 * sphere_radius)
-ax.set_zlim(-.5 * sphere_radius, .5 * sphere_radius)
+quiver = ax.quiver(*get_arrow(0))
 
 
 def update(phi):
     global quiver
     quiver.remove()
-    quiver = ax.quiver(*get_arrow(phi), arrow_length_ratio=.2, pivot='tail', capstyle='butt')
+    quiver = ax.quiver(*get_arrow(phi), pivot='tail', lw=5)
 
     global sphere
     sphere.remove()
@@ -64,9 +60,10 @@ def update(phi):
 
 # Plot the animated rotating arrow
 ani = FuncAnimation(fig, update, frames=np.linspace(0, 2 * np.pi, n), interval=0.0005)
-ax.grid(False)
-ax.set_xticks([])
-ax.set_yticks([])
-ax.set_zticks([])
+
+ax.set_xlim(-.5 * sphere_radius, .5 * sphere_radius)
+ax.set_ylim(-.5 * sphere_radius, .5 * sphere_radius)
+ax.set_zlim(-.5 * sphere_radius, .5 * sphere_radius)
+
 plt.axis('off')
 plt.show()

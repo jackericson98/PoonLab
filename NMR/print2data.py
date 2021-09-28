@@ -1,10 +1,10 @@
 """The point of this code is to allow you to copy and paste the integration data from POKY into the data file and then
 receive the data it contains (chemical shifts (w1, w2), line widths(lw1, lw2), volume, % error?)"""
 
-from POKY_string_data import *
+from NMR.POKY_string_data import *
 
 
-#Filter function
+# Filter function
 def clean_data(raw_str):
     clean_str = raw_str.replace("Fit group of 2 peaks.", '')
     clean_str = clean_str.replace("Fit group of 4 peaks.", '')
@@ -67,7 +67,6 @@ def separate(my_str):
 
 # Make an array for each data type
 def interpret_all_data(data_str):
-
     vol_array = []
     chemShift1_array = []
     chemShift2_array = []
@@ -79,7 +78,6 @@ def interpret_all_data(data_str):
     separated_data_str = separate(clean_data_str)
 
     for element in separated_data_str:
-
         vol_array.append(interpret_vol(element))
 
         line_width1, line_width2 = interpret_peaks(element)
@@ -96,9 +94,9 @@ def interpret_all_data(data_str):
     return vol_array, chemShift1_array, chemShift2_array, line_width1_array, line_width2_array, percent_array
 
 
+vol = interpret_all_data(data)[0]
 w1 = interpret_all_data(data)[1]
 w2 = interpret_all_data(data)[2]
-vol = interpret_all_data(data)[0]
 lw1 = interpret_all_data(data)[3]
 lw2 = interpret_all_data(data)[4]
 per = interpret_all_data(data)[5]

@@ -24,16 +24,17 @@ def lin_func(x, m, b):
     return y
 
 
-def exp_func(x, a, b):
-    y = a * np.exp(b * x)
+def exp_func(x, a, b, c):
+    y = a * np.exp(b * x) + c
     return y
 
 
 # Add noise function
 def add_noise(input_data):
-    noise = np.random.normal(12, 100, len(input_data))
-    noise_data = np.add(input_data, noise)
-    return noise_data
+    noise = np.abs(np.random.normal(0, .05, len(input_data)))
+    noise_data = np.multiply(input_data, noise)
+    noisey_data = np.add(input_data, noise_data)
+    return noisey_data
 
 
 # Exponential decay function. Input an array of different data points, a decay constant and the iteration and it will

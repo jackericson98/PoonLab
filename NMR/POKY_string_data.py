@@ -1,8 +1,8 @@
-"""This file is meant to store data for processing"""
+"""This file is meant to store data for processing. You must repeat the last peak because of a bug"""
 
 
 
-data = """peak @ 121.851 5.935 lw 9.563 18.105 vol 5.104e+09 rms 8.5%
+data1 = """peak @ 121.851 5.935 lw 9.563 18.105 vol 5.104e+09 rms 8.5%
 Isolated
 peak @ 110.036 8.487 lw 10.006 17.878 vol 5.790e+09 rms 7.9%
 Isolated
@@ -185,3 +185,189 @@ Isolated
 peak @ 112.449 7.671 lw 19.153 73.646 vol 1.553e+10 rms 42.4%
 peak @ 112.449 7.671 lw 19.153 73.646 vol 1.553e+10 rms 42.4%
 """
+
+
+data2 = """peak @ 121.851  5.935 lw  9.558 18.068 vol 5.105e+09 rms 8.5%
+Isolated
+peak @ 110.036  8.487 lw 10.010 17.882 vol 5.799e+09 rms 7.9%
+Isolated
+peak @ 109.645  8.963 lw 10.236 17.504 vol 3.578e+09 rms 8.1%
+Isolated
+peak @ 108.668  8.293 lw  9.624 16.010 vol 5.515e+09 rms 5.4%
+Isolated
+peak @ 108.446  8.105 lw  9.718 17.426 vol 6.035e+09 rms 18.5%
+Isolated
+peak @ 107.823  7.693 lw 10.211 17.923 vol 4.416e+09 rms 9.0%
+Isolated
+peak @ 106.297  7.580 lw 12.070 20.411 vol 2.707e+09 rms 9.0%
+Isolated
+peak @ 104.855  8.364 lw 10.058 18.573 vol 4.486e+09 rms 6.1%
+Isolated
+peak @ 124.735 10.402 lw 11.535 19.020 vol 1.827e+09 rms 13.8%
+Isolated
+peak @ 122.805 10.538 lw  9.651 16.107 vol 4.038e+09 rms 10.3%
+Isolated
+peak @ 125.511  9.468 lw  9.884 19.034 vol 5.088e+09 rms 6.4%
+Isolated
+peak @ 124.750  9.518 lw  9.946 21.998 vol 3.860e+09 rms 8.0%
+Isolated
+peak @ 127.672  9.152 lw 10.985 16.886 vol 2.767e+09 rms 11.9%
+Isolated
+peak @ 127.426  9.000 lw 10.137 16.712 vol 4.256e+09 rms 9.9%
+Isolated
+peak @ 126.159  8.702 lw 10.680 18.499 vol 3.292e+09 rms 10.8%
+Isolated
+peak @ 125.498  9.043 lw  9.546 19.590 vol 5.124e+09 rms 10.7%
+Isolated
+peak @ 124.660  8.829 lw  9.652 16.259 vol 5.098e+09 rms 5.9%
+Isolated
+peak @ 124.139  7.330 lw  9.817 21.197 vol 5.076e+09 rms 7.4%
+Isolated
+peak @ 122.923  7.461 lw  9.557 14.696 vol 7.357e+09 rms 15.1%
+Isolated
+peak @ 121.751  9.392 lw 12.829 22.342 vol 1.149e+09 rms 5.6%
+Isolated
+peak @ 121.524  9.223 lw  9.579 15.304 vol 5.985e+09 rms 26.8%
+Isolated
+peak @ 118.790  9.116 lw  9.639 18.966 vol 5.063e+09 rms 13.3%
+Fit group of 2 peaks.
+peak @ 118.343  9.084 lw  9.151 13.807 vol 3.568e+09 rms 33.0%
+peak @ 118.255  9.058 lw  9.379 16.920 vol 5.517e+09 rms 21.4%
+Isolated
+peak @ 125.904  8.407 lw 11.329 19.711 vol 5.408e+09 rms 9.9%
+Isolated
+peak @ 124.834  8.342 lw 12.625 19.611 vol 3.653e+09 rms 8.6%
+Isolated
+peak @ 124.179  8.223 lw 10.091 15.340 vol 5.220e+09 rms 14.2%
+Isolated
+peak @ 122.995  7.940 lw 10.955 13.877 vol 5.269e+09 rms 10.4%
+Isolated
+peak @ 121.752  7.871 lw 10.999 14.345 vol 5.962e+09 rms 11.3%
+Isolated
+peak @ 121.783  7.602 lw 10.818 14.698 vol 6.093e+09 rms 19.6%
+Isolated
+peak @ 120.564  7.665 lw 14.899 16.324 vol 5.883e+09 rms 10.7%
+Fit group of 4 peaks.
+peak @ 120.096  7.639 lw 14.491 29.857 vol 7.666e+09 rms 60.2%
+peak @ 119.771  7.651 lw  4.044 14.578 vol 8.576e+07 rms 5381.2%
+peak @ 119.701  7.660 lw 14.275 17.454 vol 6.490e+09 rms 71.1%
+peak @ 120.059  7.649 lw  9.032 12.716 vol 7.603e+09 rms 60.7%
+Isolated
+peak @ 119.425  7.394 lw 10.239 15.441 vol 6.904e+09 rms 13.9%
+Isolated
+peak @ 120.606  7.425 lw 12.048 15.768 vol 3.908e+09 rms 13.4%
+Isolated
+peak @ 116.947  7.469 lw 11.472 19.840 vol 5.514e+09 rms 13.8%
+Isolated
+peak @ 116.209  7.406 lw 11.522 17.635 vol 7.594e+09 rms 10.7%
+Isolated
+peak @ 115.583  7.444 lw 11.669 16.295 vol 6.662e+09 rms 11.9%
+Isolated
+peak @ 113.751  7.033 lw 10.449 19.017 vol 5.370e+09 rms 9.9%
+Isolated
+peak @ 109.960  6.732 lw 10.306 17.969 vol 5.569e+09 rms 6.4%
+Isolated
+peak @ 111.146  7.204 lw 11.541 19.212 vol 5.714e+09 rms 10.9%
+Isolated
+peak @ 110.607  7.381 lw 10.171 16.847 vol 5.104e+09 rms 11.1%
+Isolated
+peak @ 111.011  7.924 lw 11.996 17.966 vol 5.070e+09 rms 6.4%
+Isolated
+peak @ 113.402  8.141 lw 10.076 17.241 vol 5.233e+09 rms 17.5%
+Isolated
+peak @ 113.642  8.540 lw  9.941 19.592 vol 5.227e+09 rms 10.1%
+Isolated
+peak @ 113.568  8.425 lw 11.820 17.156 vol 7.130e+09 rms 12.9%
+Isolated
+peak @ 116.640  8.328 lw 11.204 14.721 vol 5.803e+09 rms 10.9%
+Isolated
+peak @ 117.641  8.638 lw  9.769 14.445 vol 5.847e+09 rms 21.2%
+Isolated
+peak @ 118.260  8.853 lw 10.745 25.398 vol 3.174e+09 rms 13.9%
+Isolated
+peak @ 120.147  8.691 lw  9.550 19.240 vol 5.366e+09 rms 13.3%
+Isolated
+peak @ 117.959  8.190 lw 10.898 14.463 vol 6.634e+09 rms 12.9%
+Isolated
+peak @ 118.859  8.321 lw 12.323 15.325 vol 6.807e+09 rms 11.0%
+Isolated
+peak @ 115.148  7.609 lw 15.011 21.145 vol 2.494e+09 rms 4.3%
+Isolated
+peak @ 116.608  7.761 lw 10.910 16.094 vol 4.993e+09 rms 13.1%
+Isolated
+peak @ 117.280  7.868 lw 14.045 15.576 vol 5.724e+09 rms 8.0%
+Fit group of 4 peaks.
+peak @ 119.023  7.836 lw 15.928 15.855 vol 3.463e+09 rms 97.3%
+peak @ 118.505  7.825 lw 14.008 22.779 vol 3.491e+09 rms 96.6%
+peak @ 118.867  7.860 lw 14.262 14.131 vol 6.251e+09 rms 53.9%
+peak @ 118.547  7.885 lw 14.603 18.831 vol 6.887e+09 rms 48.9%
+Fit group of 4 peaks.
+peak @ 121.312  7.831 lw 10.915 15.677 vol 5.925e+09 rms 48.3%
+peak @ 121.118  7.986 lw 10.702 16.104 vol 3.816e+09 rms 75.0%
+peak @ 121.124  7.911 lw 10.400 21.339 vol 5.813e+09 rms 49.3%
+peak @ 121.087  7.898 lw 10.298 19.773 vol 5.936e+09 rms 48.2%
+Isolated
+peak @ 120.885  8.290 lw 10.709 14.367 vol 6.718e+09 rms 15.2%
+Isolated
+peak @ 123.058  8.397 lw 14.540 19.231 vol 1.824e+09 rms 5.0%
+Isolated
+peak @ 120.227  8.200 lw 12.090 16.113 vol 6.298e+09 rms 10.2%
+Isolated
+peak @ 118.816  8.556 lw  9.433 14.846 vol 6.776e+09 rms 14.8%
+Isolated
+peak @ 118.143  7.771 lw 11.241 15.259 vol 6.372e+09 rms 10.4%
+Isolated
+peak @ 119.256  7.633 lw 13.712 15.313 vol 5.945e+09 rms 14.1%
+Fit group of 2 peaks.
+peak @ 118.393  8.024 lw 11.864 17.004 vol 2.403e+09 rms 32.2%
+peak @ 118.256  8.000 lw 12.889 24.203 vol 3.433e+09 rms 22.5%
+Fit group of 2 peaks.
+peak @ 119.442  8.483 lw 11.495 12.414 vol 4.480e+09 rms 24.5%
+peak @ 119.518  8.472 lw 12.167 15.166 vol 5.434e+09 rms 20.2%
+Fit group of 2 peaks.
+peak @ 123.673  8.462 lw 15.559 23.126 vol 1.875e+09 rms 10.7%
+peak @ 123.588  8.425 lw 21.184 26.756 vol 1.546e+09 rms 13.0%
+Isolated
+peak @ 122.781  8.280 lw 13.611 19.315 vol 5.254e+09 rms 6.8%
+Isolated
+peak @ 117.587  8.825 lw 16.912 21.201 vol 1.119e+09 rms 5.3%
+Fit group of 2 peaks.
+peak @ 119.689  7.941 lw 14.572 17.969 vol 4.404e+09 rms 36.5%
+peak @ 119.680  7.943 lw  9.092  9.974 vol 2.018e+09 rms 79.6%
+Isolated
+peak @ 114.288  8.413 lw 11.845 15.457 vol 6.954e+09 rms 14.7%
+Isolated
+peak @ 123.417  8.279 lw 13.177 16.347 vol 4.196e+09 rms 7.1%
+Isolated
+peak @ 117.721  7.870 lw  7.741 15.009 vol 6.192e+08 rms 12.2%
+Isolated
+peak @ 111.302  7.575 lw 16.777 17.139 vol 1.486e+09 rms 6.3%
+Isolated
+peak @ 115.983  7.964 lw 16.523 16.182 vol 9.449e+08 rms 2.7%
+Isolated
+peak @ 111.197  7.518 lw 17.880 10.988 vol 8.502e+08 rms 4.1%
+Isolated
+peak @ 111.161  6.965 lw 22.787 14.017 vol 8.194e+08 rms 2.5%
+Isolated
+peak @ 112.755  7.530 lw 41.181 13.900 vol 2.608e+09 rms 9.5%
+Isolated
+peak @ 114.039  7.928 lw 17.869  9.821 vol 8.272e+08 rms 5.8%
+Isolated
+peak @ 113.912  6.896 lw 19.310 13.530 vol 1.094e+09 rms 4.4%
+Isolated
+peak @ 112.041  7.498 lw  9.009 14.206 vol 9.778e+09 rms 16.3%
+Isolated
+peak @ 122.259  8.364 lw 11.450 15.637 vol 5.445e+09 rms 10.3%
+Isolated
+peak @ 118.096  7.877 lw 12.120 36.559 vol 1.923e+09 rms 5.6%
+Isolated
+peak @ 123.040  8.150 lw 17.465 42.571 vol 1.420e+09 rms 0.2%
+Isolated
+peak @ 128.938 10.046 lw  9.470 16.714 vol 6.346e+09 rms 14.6%
+Isolated
+peak @ 129.717 10.076 lw  9.048 15.875 vol 7.176e+09 rms 11.9%
+Isolated
+peak @ 128.009 10.622 lw  9.351 19.298 vol 4.197e+09 rms 7.1%
+Isolated
+peak @ 112.446  7.661 lw 17.117 69.537 vol 1.332e+10 rms 50.9%
+peak @ 112.446  7.661 lw 17.117 69.537 vol 1.332e+10 rms 50.9%"""

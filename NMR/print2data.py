@@ -42,11 +42,11 @@ def interpret_line_width(peak_data):
 
 
 # Percentage getter function
-def interpret_percentage(peak_data):
+def interpret_rms(peak_data):
     index1 = peak_data.find('%') - 4
     index2 = peak_data.find('%')
-    percentage_data = float(peak_data[index1:index2])
-    return percentage_data
+    rms_data = float(peak_data[index1:index2])
+    return rms_data
 
 
 # Single string to array function
@@ -72,7 +72,7 @@ def interpret_all_data(data_str):
     chemShift2_array = []
     line_width1_array = []
     line_width2_array = []
-    percent_array = []
+    rms_array = []
 
     clean_data_str = clean_data(data_str)
     separated_data_str = separate(clean_data_str)
@@ -87,16 +87,17 @@ def interpret_all_data(data_str):
         line_width1_data, line_width2_data = interpret_line_width(element)
         line_width1_array.append(line_width1_data)
         line_width2_array.append(line_width2_data)
+        rms_data = interpret_rms(element)
+        rms_array.append(rms_data)
 
-        percent_data = interpret_percentage(element)
-        percent_array.append(percent_data)
+    return vol_array, chemShift1_array, chemShift2_array, line_width1_array, line_width2_array, rms_array
 
-    return vol_array, chemShift1_array, chemShift2_array, line_width1_array, line_width2_array, percent_array
 
+data = data2
 
 vol = interpret_all_data(data)[0]
 w1 = interpret_all_data(data)[1]
 w2 = interpret_all_data(data)[2]
 lw1 = interpret_all_data(data)[3]
 lw2 = interpret_all_data(data)[4]
-per = interpret_all_data(data)[5]
+rms = interpret_all_data(data)[5]

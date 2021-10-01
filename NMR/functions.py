@@ -29,15 +29,20 @@ def exp_func(x, a, b):
     return y
 
 
-def rand_error(datapoint):
-    err_max = datapoint
-    data_error = 2 * (random.random() - 0.5) * err_max
-    return data_error
+# Add noise function
+def add_noise(input_data):
+    noise = np.random.normal(12, 100, len(input_data))
+    noise_data = np.add(input_data, noise)
+    return noise_data
 
 
-def error_data(old_data, percent):
+# Exponential decay function. Input an array of different data points, a decay constant and the iteration and it will
+# return the specific decay value
+def decay_at_time(vol_array, time, decay_constant):
+    old_data = vol_array
     new_data = []
-    for data_point in old_data:
-        new_data_point = data_point + rand_error(data_point) * percent
-        new_data.append(new_data_point)
+    for i in range(len(vol_array)):
+        decay_value = np.exp(-time * decay_constant)
+        new_point = old_data[i] * decay_value
+        new_data.append(new_point)
     return new_data

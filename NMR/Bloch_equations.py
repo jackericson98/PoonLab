@@ -15,13 +15,14 @@ quiver_length = 1  # Length of the vector representing spin (should have a formu
 
 # Solution of the Bloch equations with T1, T2 --> infinity
 def solved_bloch(t):
-    global w0, M0
+    global M0, w0
     Mx = M0[0] * np.cos(w0 * t)
     My = -M0[1] * np.sin(w0 * t)
     Mz = 0
     return Mx, My, Mz
 
 
+# Exponential decay function applied to the magnetization vectors to simulate relaxation
 def relaxation(t):
     global T2
     Mx = solved_bloch(t)[0] * np.exp(-t/T2)
@@ -44,27 +45,17 @@ def bloch_eq(x_data, y_data, z_data):
     return dMxdt * dt, dMydt * dt, dMzdt * dt
 
 
-"""Iterable x, y, z, components change by increments of bloch(x, y, z) each iteration"""
-
-
+# Arranging the data into x, y, z arrays
 def make_data_array(num_frames):
     global M0
-    x0 = M0[0]
-    y0 = M0[1]
-    z0 = M0[2]
-    x_data = [x0]
-    y_data = [y0]
-    z_data = [z0]
-    new_x = x0
-    new_y = y0
-    new_z = z0
+    x_data = [M0[0]]
+    y_data = [M0[1]]
+    z_data = [M0[2]]
     for i in range(num_frames):
-        new_x = bloch_eq(x_data[i], y_data[i], z_data[i])[0] + new_x
-        new_y = bloch_eq(x_data[i], y_data[i], z_data[i])[1] + new_y
-        new_z = bloch_eq(x_data[i], y_data[i], z_data[i])[2] + new_z
+        new_x = bloch_eq(x_data[i], y_data[i], z_data[i])[0] + x_data[i-1]
+        new_y = bloch_eq(x_data[i], y_data[i], z_data[i])[1] + y_data[i-1]
+        new_z = bloch_eq(x_data[i], y_data[i], z_data[i])[2] + z_data[i-1]
         x_data.append(new_x)
         y_data.append(new_y)
         z_data.append(new_z)
-        # lineData[:, index] = lineData[:, index-1] + step
-
     return x_data, y_data, z_data

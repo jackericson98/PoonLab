@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
 
+
 fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 
 # Controllable Variables
@@ -21,6 +22,13 @@ def decay(vol_array, iteration):
         new_point = old_data[i] * decay_value
         new_data.append(new_point)
     return new_data
+
+
+# Add noise function
+def add_noise(input_data):
+    noise = np.random.normal(0, 1, len(input_data))
+    noise_data = np.add(input_data, noise)
+    return noise_data
 
 
 vol_data = ax.scatter(w1, w2, vol)

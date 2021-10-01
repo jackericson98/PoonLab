@@ -45,6 +45,7 @@ ax.text(-quiver_length, quiver_length - 0.7 * quiver_length, 0, "X")
 ax.text(-quiver_length + 0.7 * quiver_length, quiver_length, 0, "Y")
 ax.text(-quiver_length, quiver_length, 0.7 * quiver_length, "Z")
 
+
 ax.set_title("NMR Relaxation")
 ax.set_xlim(-1, 1.5)
 ax.set_ylim(-1, 1.5)

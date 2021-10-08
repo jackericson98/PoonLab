@@ -11,14 +11,18 @@ quiver_z = ax.quiver(0, 0, 0, 0, 0, 0)
 time = ax.text(1, 0, 1, "Time (in ps) = %d" % 0)
 xy_text = ax.text(1, 0, .8, "Transverse Magnetization = %f" % 1)
 z_text = ax.text(1, 0, .6, "Longitudinal Magnetization = %f" % 0)
+line = ax.plot(0, 0)
+num_frames = num_its
 
 
 # Animation function defined
-def update(frame):
+def update(frame, trace_line, dataset):
 
-    data = relaxation(frame)
+    global quiver, quiver_z, quiver_xy, time, xy_text, z_text, num_frames
+    pi_frame = frame * (40 * np.pi) / num_its
+    data = dataset[frame]
+    print(data)
     xy_mag = np.sqrt(data[0] ** 2 + data[1] ** 2)
-    global quiver, quiver_z, quiver_xy, time, xy_text, z_text
 
     quiver.remove()
     quiver_xy.remove()
@@ -34,10 +38,19 @@ def update(frame):
     time = ax.text(1, 0, 1, "Time = %d" % frame)
     xy_text = ax.text(1, 0, .8, "Transverse Magnetization = %.2f" % xy_mag)
     z_text = ax.text(1, 0, .6, "Longitudinal Magnetization = %.2f" % data[2])
+    ax.plot(frame, data[0])
 
+    trace_line.set_data(data[:2])
+    trace_line.set_3d_properties(data[2])
+
+
+dataset = make_rel_array(num_its)
+print(dataset)
+print(dataset[1])
+line = plt.plot(*M0)
 
 # Plot stuff
-ani = FuncAnimation(fig, update, frames=np.linspace(0, 20*np.pi/w0, 5*num_its), interval=0.5)
+ani = FuncAnimation(fig, update, frames=num_its, fargs=(line, dataset), interval=0.05, blit=False)
 ax.quiver(-quiver_length, quiver_length, 0, 0.5 * quiver_length, 0, 0, color='black')
 ax.quiver(-quiver_length, quiver_length, 0, 0, -0.5 * quiver_length, 0, color='black')
 ax.quiver(-quiver_length, quiver_length, 0, 0, 0, 0.5 * quiver_length, color='black')

@@ -2,18 +2,19 @@ import numpy as np
 
 # Variables
 M0 = [1, 1, 1]  # Initial Magnetization vector
-B0 = 1  # Static Magnetic Field Strength
-B_hat = [0, 0, B0]  # Static Magnetic Field Direction (currently misleading)
+B0 = 1.  # Static Magnetic Field Strength
+B_hat = [0., 0., B0]  # Static Magnetic Field Direction (currently misleading)
 B1 = 1 # RF Field Amplitude
-T1 = 60  # Longitudinal Relaxation Constant
-T2 = 40  # Transverse Relaxation Constant
+T1 = 100  # Longitudinal Relaxation Constant
+T2 = 60  # Transverse Relaxation Constant
 dt = T1/100  # Time Step
 gamma = 1  # Gyromagnetic Ratio
 num_its = 100  # Number of animation frames
 w0 = gamma * B0  # Larmor Frequency
-wrf = 1 # RF Pulse frequency
+wrf = 2 # RF Pulse frequency
 omega = w0 - wrf
 quiver_length = 1  # Length of the vector representing spin (should have a formula ... Spin mag?)
+phi = np.pi/4
 
 
 # Solution of the Bloch equations with T1, T2 --> infinity
@@ -56,29 +57,28 @@ def bloch_eq(x_data, y_data, z_data):
     return dMxdt * dt, dMydt * dt, dMzdt * dt
 
 
-def bloch_eq(M_t, B_t):
+def bloch_eq(M_t):
     global omega, T1, T2, phi
-    Mz_0 = 0
     R1, R2 = 1/T1, 1/T2
-    evo_mat = [[-R2, -omega, w1 * np.sin(phi)], [omega, -R2, -w1 * np.cos(phi)], [-w1 * np.sin(phi), w1 * np.cos(phi), -R1]]
-    dMt_wrt_dt = np.dot(evo_mat, M_t) + R1*Mz_0*[0, 0, 1]
+    evo_mat = [-R2, -omega, w0 * np.sin(2*phi)], [omega, -R2, -w0 * np.cos(phi)], [-w0 * np.sin(phi), w0 * np.cos(phi), -R1]
+    dMt_wrt_dt = np.dot(evo_mat, M_t)
     return dMt_wrt_dt
 
-# Arranging the data into x, y, z arrays
-def make_data_array(num_frames):
-    global M0
-    x_data = [M0[0]]
-    y_data = [M0[1]]
-    z_data = [M0[2]]
-    for i in range(num_frames):
-        new_x = bloch_eq(x_data[i], y_data[i], z_data[i])[0] + x_data[i-1]
-        new_y = bloch_eq(x_data[i], y_data[i], z_data[i])[1] + y_data[i-1]
-        new_z = bloch_eq(x_data[i], y_data[i], z_data[i])[2] + z_data[i-1]
-        x_data.append(new_x)
-        y_data.append(new_y)
-        z_data.append(new_z)
-    return x_data, y_data, z_data
 
-# Laboratory frame to rotating frame
-def lab_to_rot():
+# Arranging the data into x, y, z arrays
+def make_data_array(func, num_frames):
+    global M0, dt
+    M = [M0, ]
+    for i in range(1, num_frames):
+        new_M = func((M[i-1]))*dt + M[i-1]
+        M.append(new_M)
+    return M
+
+
+def make_rel_array(num_its):
+    rel_array = []
+    for i in range(num_its):
+        rel_array.append(relaxation(i))
+    return rel_array
+
 

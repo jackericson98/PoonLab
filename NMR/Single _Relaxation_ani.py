@@ -1,29 +1,37 @@
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from Bloch_equations import *
+import numpy as np
 
 fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 
-# Moving parts defined
-quiver = ax.quiver(0, 0, 0, *M0)
-quiver_xy = ax.quiver(0, 0, 0, quiver_length, 0, 0, color='black')
+# ----------------------- Set Up --------------------------
+# Atom defined. Initial position and type
+p = Atom([0, 1, 1], 'N')
+
+# Initial state of animated parts
+quiver = ax.quiver(0, 0, 0, *p.relaxation(0))
+quiver_xy = ax.quiver(0, 0, 0, *p.relaxation(0)[:2], 0, color='black')
 quiver_z = ax.quiver(0, 0, 0, 0, 0, 0)
 time = ax.text(1, 0, 1, "Time (in ps) = %d" % 0)
 xy_text = ax.text(1, 0, .8, "Transverse Magnetization = %f" % 1)
 z_text = ax.text(1, 0, .6, "Longitudinal Magnetization = %f" % 0)
-line = ax.plot(0, 0)
-num_frames = num_its
 
+# Number of iterations in the animated function
+num_its = 100
 
-# Animation function defined
-def update(frame, trace_line, dataset):
+# ---------------------- Animation Function --------------------
+# Animation function
+def update(frame):
 
-    global quiver, quiver_z, quiver_xy, time, xy_text, z_text, num_frames
-    pi_frame = frame * (40 * np.pi) / num_its
-    data = dataset[frame]
-    print(data)
+    # Call variables
+    global quiver, quiver_z, quiver_xy, time, xy_text, z_text, p
+
+    # Create Data
+    data = p.relaxation(frame)
     xy_mag = np.sqrt(data[0] ** 2 + data[1] ** 2)
 
+    # Remove last frame
     quiver.remove()
     quiver_xy.remove()
     quiver_z.remove()
@@ -31,34 +39,32 @@ def update(frame, trace_line, dataset):
     xy_text.remove()
     z_text.remove()
 
-    quiver = ax.quiver(0, 0, 0, *data, lw=2, length=quiver_length)
-    quiver_xy = ax.quiver(1, 0, 0, xy_mag, 0, 0, lw=2, length=quiver_length, color='red')
-    quiver_z = ax.quiver(1, 0, 0, 0, 0, data[2], lw=2, length=quiver_length, color='purple')
+    # Quivers
+    quiver = ax.quiver(0, 0, 0, *data, lw=2)
+    quiver_xy = ax.quiver(1, 0, 0, xy_mag, 0, 0, lw=2, color='red')
+    quiver_z = ax.quiver(1, 0, 0, 0, 0, data[2], lw=2, color='purple')
 
+    # Text
     time = ax.text(1, 0, 1, "Time = %d" % frame)
     xy_text = ax.text(1, 0, .8, "Transverse Magnetization = %.2f" % xy_mag)
     z_text = ax.text(1, 0, .6, "Longitudinal Magnetization = %.2f" % data[2])
-    ax.plot(frame, data[0])
-
-    trace_line.set_data(data[:2])
-    trace_line.set_3d_properties(data[2])
 
 
-dataset = make_rel_array(num_its)
-print(dataset)
-print(dataset[1])
-line = plt.plot(*M0)
+# -------------------------- Plot -------------------------------
 
-# Plot stuff
-ani = FuncAnimation(fig, update, frames=num_its, fargs=(line, dataset), interval=0.05, blit=False)
-ax.quiver(-quiver_length, quiver_length, 0, 0.5 * quiver_length, 0, 0, color='black')
-ax.quiver(-quiver_length, quiver_length, 0, 0, -0.5 * quiver_length, 0, color='black')
-ax.quiver(-quiver_length, quiver_length, 0, 0, 0, 0.5 * quiver_length, color='black')
-ax.text(-quiver_length, quiver_length - 0.7 * quiver_length, 0, "X")
-ax.text(-quiver_length + 0.7 * quiver_length, quiver_length, 0, "Y")
-ax.text(-quiver_length, quiver_length, 0.7 * quiver_length, "Z")
+# Animation Function plot
+ani = FuncAnimation(fig, update, frames=num_its, interval=5)
 
+# Coordinate compass defined
+axis_quiver_length = 1
+ax.quiver(-axis_quiver_length, axis_quiver_length, 0, 0.5 * axis_quiver_length, 0, 0, color='black')
+ax.quiver(-axis_quiver_length, axis_quiver_length, 0, 0, -0.5 * axis_quiver_length, 0, color='black')
+ax.quiver(-axis_quiver_length, axis_quiver_length, 0, 0, 0, 0.5 * axis_quiver_length, color='black')
+ax.text(-axis_quiver_length, axis_quiver_length - 0.7 * axis_quiver_length, 0, "X")
+ax.text(-axis_quiver_length + 0.7 * axis_quiver_length, axis_quiver_length, 0, "Y")
+ax.text(-axis_quiver_length, axis_quiver_length, 0.7 * axis_quiver_length, "Z")
 
+# Plot info
 ax.set_title("NMR Relaxation")
 ax.set_xlim(-1, 1.5)
 ax.set_ylim(-1, 1.5)

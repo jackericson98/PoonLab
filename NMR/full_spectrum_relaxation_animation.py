@@ -1,10 +1,7 @@
-"""The point of this file is to be able to input your data and receive a plot"""
-
 from print2data import *
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
-
 
 fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 
@@ -41,7 +38,7 @@ def update(iteration):
     vol_data = ax.scatter(w1, w2, decay(vol, iteration), color='red')
 
 
-# Plot calls
+# Plot
 ax.set_xlabel('Hydrogen Chemical Shift (ppm)')
 ax.set_ylabel('Nitrogen Chemical Shift (ppm)')
 ax.set_zlabel('Intensity (rms)')
@@ -50,5 +47,5 @@ z_max = np.max(vol)
 ax.set_zlim(0, z_max)
 
 ani = FuncAnimation(fig, update, frames=np.linspace(0, 1, 100 // speed), interval=0.0005)
-
+# ani.save(r"C:\Users\i5-2500\PycharmProjects\PoonLab\NMR\relaxation.gif", writer='pillow')
 plt.show()

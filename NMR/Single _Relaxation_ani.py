@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from Bloch_equations import *
+from nmratom import *
 import numpy as np
 
 fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 
 # ----------------------- Set Up --------------------------
 # Atom defined. Initial position and type
-p = Atom([0, 1, 1], 'N')
+p = NMRAtom([0, 1, 1], 'N')
 
 # Initial state of animated parts
 quiver = ax.quiver(0, 0, 0, *p.relaxation(0))

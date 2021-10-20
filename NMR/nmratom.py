@@ -1,10 +1,12 @@
 import numpy as np
 
 
-class Atom:
-    """Class for creating an atom with an initial spin direction and type"""
+class NMRAtom:
+    """Class for processing the response of an atom (1H, 13C, 15N) in different possible states of an NMR environment.
+    The larmor function works as the initial state for other functions, since it represents the state of an unperturbed
+    atomic nuclei in the presence of a static magnetic field."""
 
-    def __init__(self, initM, atom='h', T1=120, T2=80, B_0=14):
+    def __init__(self, initM, atom='h', T1=120, T2=80, B_0=14):  #T1, T2 measured in , B_0 measured in Tesla
 
         self.mag_vec = initM
         self.phi = np.arctan(np.sqrt(initM[0] ** 2 + initM[1] ** 2) / initM[2])

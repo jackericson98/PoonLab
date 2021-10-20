@@ -56,6 +56,16 @@ def exp_fit(x_vals, y_vals):
     return y_fit, a, b, c
 
 
+def multi_exp_fit(data, time_step):
+    """Takes a set of sets of data (ex: data = [dataset1, ... , datasetn], dataset1 = [xdata, ydata, volumedata] at time
+    t) and returns an array of relaxation times for each peak"""
+    time_step_array = np.arrange(0, time_step*len(data), time_step)  # Array of time stamps for relaxation fitting
+    relaxation_data = []
+    for i in range(data[0, :]):  # For each data point record relaxation constant
+        relaxation_data.append(exp_fit(time_step_array, (data[:, 2, i]))[2])
+    return relaxation_data
+
+
 # Create our test data sets
 x_data = np.linspace(0.1, 1.1, 100)
 y_data = Test_data(x_data).make_noise_data()

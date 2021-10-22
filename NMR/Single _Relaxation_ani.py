@@ -20,6 +20,7 @@ z_text = ax.text(1, 0, .6, "Longitudinal Magnetization = %f" % 0)
 # Number of iterations in the animated function
 num_its = 100
 
+
 # ---------------------- Animation Function --------------------
 # Animation function
 def update(frame):
@@ -70,5 +71,6 @@ ax.set_xlim(-1, 1.5)
 ax.set_ylim(-1, 1.5)
 ax.set_zlim(-1, 1)
 ax.axis('off')
+
 
 plt.show()

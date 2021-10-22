@@ -21,13 +21,6 @@ def decay(vol_array, iteration):
     return new_data
 
 
-# Add noise function
-def add_noise(input_data):
-    noise = np.random.normal(0, 1, len(input_data))
-    noise_data = np.add(input_data, noise)
-    return noise_data
-
-
 vol_data = ax.scatter(w1, w2, vol)
 
 

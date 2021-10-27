@@ -6,7 +6,7 @@ class NMRAtom:
     The larmor function works as the initial state for other functions, since it represents the state of an unperturbed
     atomic nuclei in the presence of a static magnetic field."""
 
-    def __init__(self, initM, atom='h', T1=120, T2=80, B_0=14):  #T1, T2 measured in , B_0 measured in Tesla
+    def __init__(self, initM, atom='h', T1=120, T2=80, B_0=14):  # T1, T2 measured in , B_0 measured in Tesla
 
         self.mag_vec = initM
         self.phi = np.arctan(np.sqrt(initM[0] ** 2 + initM[1] ** 2) / initM[2])
@@ -70,3 +70,4 @@ class NMRAtom:
         wrf = 1
         B_rf = [B1 * np.cos(wrf * t + phase), B1 * np.sin(wrf * t + phase), 0]
         return B_rf
+

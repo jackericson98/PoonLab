@@ -2,21 +2,28 @@
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import random as rd
-from print2data import *
+from translate_Poky import Translate_Poky
 import numpy as np
 from matplotlib.animation import FuncAnimation
+from POKY_string_data import *
 
 """This file takes in consecutive frames of full spectra of 2D NMR data and returns relaxation constants for each 
 residue. The Test_data class can be used to produce test data for fitting and animation"""
+
+data = Translate_Poky(data2)
+vol = data.vol()
+w1, w2 = data.chem_shift()
+lw1, lw2 = data.line_width()
+rms = data.rms()
 
 
 # ------------------------------- Test Data ---------------------------------------
 class Test_data:
     """Creates an exponential decay data set with random noise"""
 
-    def __init__(self, x_max=1, num_frames=32, decay_constant=-10, noise=0.05, y0=1):
+    def __init__(self, decay_time=1, num_frames=64, decay_constant=-10, noise=0.05, y0=1):
         self.decay_constant = decay_constant
-        self.x_test = np.linspace(.01, x_max, num_frames)
+        self.x_test = np.linspace(.01, decay_time, num_frames)
         self.y_test = []
         self.noise = noise
         self.y0 = y0
@@ -39,7 +46,6 @@ class Test_data:
         return self.y_test
 
     def make_data_frame(self, vol_data=np.linspace(1, 1, 100)):
-
         """Creates a data frame of test values each with unique relaxation constants"""
 
         decay_storage = []
@@ -49,7 +55,6 @@ class Test_data:
             decay_storage.append(decay_constant)
             ds = self.make_noise_data(peak, decay_constant)
             self.df.append(ds)
-        print(decay_storage)
         return self.df
 
     def __str__(self):
@@ -66,17 +71,15 @@ def exp_func(x, a, b, c):
 
 # Create a curve fitting function
 def exp_fit(x_values, y_values):
-
     """Single exponential fit function"""
 
-    best_fit, _ = curve_fit(exp_func, x_values, y_values, p0=(1e+9, -5, 0), maxfev=500)
+    best_fit, _ = curve_fit(exp_func, x_values, y_values, p0=(1e+9, -5, 0), maxfev=50000)
     a, b, c = best_fit[0], best_fit[1], best_fit[2]
     y_fit = a * np.exp(x_values * b) + c
     return y_fit, a, b, c
 
 
 def multi_exp_fit(vol_data, x_max):
-
     """Takes a full spectrum of relaxation data and returns an array of relaxation rates for each peak"""
 
     x_array = np.linspace(0, x_max, len(vol_data[0]))  # Array of time stamps for relaxation fitting
@@ -96,7 +99,7 @@ def multi_exp_fit(vol_data, x_max):
 
 # ------------------------------ Make our test data -------------------------
 
-df = Test_data(x_max=5).make_data_frame(vol)  # This would be the data we import
+df = Test_data(decay_time=50).make_data_frame(vol)  # This would be the data we import
 
 fits = multi_exp_fit(df, 5)  # Get an array of fits
 

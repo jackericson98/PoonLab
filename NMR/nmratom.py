@@ -14,12 +14,14 @@ class NMRAtom:
         self.T2 = T2
         self.B_0 = B_0
 
+        # mass number (amu), gyromagnetic ratio (Hz/G), spin (atomic spin number),
+        # magnetic dipole moment(nuclear magnetons)
         if atom == 'Hydrogen' or 'hydrogen' or 'H' or 'h':
-            self.atom = [1, 4257.7, 1 / 2, 2.79]  # amu, Hz/G, nuclear magnetons
+            self.atom = [1, 4257.7, 1 / 2, 2.79]
         elif atom == 'Carbon' or 'carbon' or 'c' or 'C':
-            self.atom = [13, 1070.5, 1 / 2, 0.70]  # amu, Hz/G, nuclear magnetons
+            self.atom = [13, 1070.5, 1 / 2, 0.70]
         elif atom == 'Nitrogen' or 'nitrogen' or 'N' or 'n':
-            self.atom = [15, -431.6, 1 / 2, -0.28]  # amu, Hz/G, nuclear magnetons
+            self.atom = [15, -431.6, 1 / 2, -0.28]
 
     def larmor(self, t):
 

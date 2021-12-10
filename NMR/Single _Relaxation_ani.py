@@ -18,7 +18,7 @@ xy_text = ax.text(1, 0, .8, "Transverse Magnetization = %f" % 1)
 z_text = ax.text(1, 0, .6, "Longitudinal Magnetization = %f" % 0)
 
 # Number of iterations in the animated function
-num_its = 100
+cum_time = 1000
 
 
 # ---------------------- Animation Function --------------------
@@ -54,7 +54,7 @@ def update(frame):
 # -------------------------- Plot -------------------------------
 
 # Animation Function plot
-ani = FuncAnimation(fig, update, frames=num_its, interval=5)
+ani = FuncAnimation(fig, update, frames=cum_time, interval=5)
 
 # Coordinate compass defined
 axis_quiver_length = 1

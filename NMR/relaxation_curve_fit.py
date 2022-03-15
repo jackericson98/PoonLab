@@ -10,6 +10,7 @@ from POKY_string_data import *
 """This file takes in consecutive frames of full spectra of 2D NMR data and returns relaxation constants for each 
 residue. The Test_data class can be used to produce test data for fitting and animation"""
 
+# ------------------------------ Get Real Spectrum ---------------------------------
 data = Translate_Poky(data2)
 vol = data.vol()
 w1, w2 = data.chem_shift()
@@ -17,7 +18,7 @@ lw1, lw2 = data.line_width()
 rms = data.rms()
 
 
-# ------------------------------- Test Data ---------------------------------------
+# ------------------------------- Make Test Relaxation Data ---------------------------------------
 class Test_data:
     """Creates an exponential decay data set with random noise"""
 

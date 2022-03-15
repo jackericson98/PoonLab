@@ -10,7 +10,7 @@ fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 p = NMRAtom([0, 1, 1], 'N')
 
 # Initial state of animated parts
-quiver = ax.quiver(0, 0, 0, *p.relaxation(0))
+main_quiver = ax.quiver(0, 0, 0, *p.relaxation(0))
 quiver_xy = ax.quiver(0, 0, 0, *p.relaxation(0)[:2], 0, color='black')
 quiver_z = ax.quiver(0, 0, 0, 0, 0, 0)
 time = ax.text(1, 0, 1, "Time (in ps) = %d" % 0)
@@ -26,14 +26,14 @@ num_its = 100
 def update(frame):
 
     # Call variables
-    global quiver, quiver_z, quiver_xy, time, xy_text, z_text, p
+    global main_quiver, quiver_z, quiver_xy, time, xy_text, z_text, p
 
     # Create Data
     data = p.relaxation(frame)
     xy_mag = np.sqrt(data[0] ** 2 + data[1] ** 2)
 
     # Remove last frame
-    quiver.remove()
+    main_quiver.remove()
     quiver_xy.remove()
     quiver_z.remove()
     time.remove()
@@ -41,7 +41,7 @@ def update(frame):
     z_text.remove()
 
     # Quivers
-    quiver = ax.quiver(0, 0, 0, *data, lw=2)
+    main_quiver = ax.quiver(0, 0, 0, *data, lw=2)
     quiver_xy = ax.quiver(1, 0, 0, xy_mag, 0, 0, lw=2, color='red')
     quiver_z = ax.quiver(1, 0, 0, 0, 0, data[2], lw=2, color='purple')
 
